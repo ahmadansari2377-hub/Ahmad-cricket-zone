@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($lines = Get-Content -Encoding utf8 \"C:\\\\Users\\\\Affanlaptop.pk\\\\.claude\\\\plans\\\\i-want-to-create-fuzzy-dream.md\"; $out = $lines[0..6] + $lines[9..\\($lines.Length-1\\)]; [IO.File]::WriteAllLines\\(\"c:\\\\Users\\\\Affanlaptop.pk\\\\OneDrive\\\\Desktop\\\\new web\\\\plan.md\", $out, \\(New-Object Text.UTF8Encoding $false\\)\\); \\(Get-Content \"c:\\\\Users\\\\Affanlaptop.pk\\\\OneDrive\\\\Desktop\\\\new web\\\\plan.md\" -TotalCount 10\\))",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+Player models used by the game. By Quaternius (https://quaternius.com), released under CC0 (public domain):
+free to use, no attribution required. Credited anyway.
+
+male.glb                 Universal Base Characters (Standard): Superhero_Male_FullBody, textures resized to 1024 px WebP
+hair_simpleparted.glb    Universal Base Characters: Hair_SimpleParted
+hair_buzzed.glb          Universal Base Characters: Hair_Buzzed
+hair_beard.glb           Universal Base Characters: Hair_Beard
+
+Kit (shirt, trousers, shoes) is cut from the body mesh at load time by src/scene/playerModel.ts.

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ahmad's Cricket Arena</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23c8102e'/%3E%3Cpath d='M14 22c10 6 26 6 36 0M14 42c10-6 26-6 36 0' stroke='%23fff' stroke-width='3' fill='none' stroke-dasharray='4 3'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- Main menu -->
+    <section id="menu" class="overlay">
+      <div class="menu-card">
+        <div class="account-bar">
+          <button id="btn-account" class="account-chip" aria-label="Account"></button>
+          <button id="btn-profile" class="btn text">Profile</button>
+          <button id="btn-leaders" class="btn text">Leaderboards</button>
+        </div>
+        <p class="eyebrow"><i class="live-dot"></i>Hands-on webcam cricket</p>
+        <h1>Ahmad's<br /><span>Cricket Arena</span></h1>
+        <p class="fixture"><b id="fixture-home">Pakistan</b> v <b id="fixture-away">Australia</b> · 2 overs · <span id="fixture-venue">Lord's, London</span></p>
+        <div class="pick-row">
+          <span>Teams</span>
+          <div class="seg" id="comp-pick" role="group" aria-label="Competition"></div>
+        </div>
+        <div class="team-pick">
+          <span class="team-label">Your team</span>
+          <div class="team-grid" id="home-grid" role="radiogroup" aria-label="Your team"></div>
+          <span class="team-label">Opponent</span>
+          <div class="team-grid" id="away-grid" role="radiogroup" aria-label="Opponent"></div>
+        </div>
+        <div class="pick-row">
+          <span>Ground</span>
+          <div class="seg" data-pick="ground">
+            <button data-v="lords" class="on" aria-pressed="true">Lord's</button>
+            <button data-v="mcg" aria-pressed="false">MCG</button>
+          </div>
+        </div>
+        <div class="pick-row">
+          <span>Time</span>
+          <div class="seg" data-pick="time">
+            <button data-v="day" class="on" aria-pressed="true">Day</button>
+            <button data-v="night" aria-pressed="false">Day-night</button>
+          </div>
+        </div>
+        <div class="pick-row">
+          <span>Level</span>
+          <div class="seg" data-pick="difficulty">
+            <button data-v="easy" aria-pressed="false">Easy</button>
+            <button data-v="medium" class="on" aria-pressed="true">Medium</button>
+            <button data-v="hard" aria-pressed="false">Hard</button>
+          </div>
+        </div>
+        <div class="role-pick" role="radiogroup" aria-label="Choose a match type">
+          <button class="role on" data-mode="full" role="radio" aria-checked="true"><b>Full match</b><span>Toss, then 2 overs each</span></button>
+          <button class="role" data-mode="chase" role="radio" aria-checked="false"><b>Chase</b><span>Bat to a set target</span></button>
+          <button class="role" data-mode="defend" role="radio" aria-checked="false"><b>Defend</b><span>Bowl to protect a total</span></button>
+        </div>
+        <div class="menu-buttons">
+          <button id="btn-webcam" class="btn primary">Play with webcam</button>
+          <button id="btn-start" class="btn ghost">Play with keyboard</button>
+        </div>
+        <p id="menu-error" class="menu-error hidden"></p>
+        <details class="controls">
+          <summary>How to play</summary>
+          <h3>Webcam controls</h3>
+          <ul>
+            <li>Swing your arms like a real bat. <b>Timing</b> decides the shot</li>
+            <li>Swing <b>harder</b> for more power, <b>gently</b> to block</li>
+            <li>Swing <b>across</b> your body for leg side, <b>straighter</b> for off side</li>
+            <li>Swing <b>upwards</b> to loft it over the field</li>
+            <li>Move your <b>head</b> to lean and duck in POV</li>
+          </ul>
+          <h3>Keyboard</h3>
+          <ul>
+            <li>Batting: <kbd>Mouse</kbd> aim · <kbd>Space</kbd> swing · hold <kbd>Shift</kbd> loft · <kbd>S</kbd> block</li>
+            <li>Bowling: <kbd>Mouse</kbd> place the target on the pitch · <kbd>1</kbd>–<kbd>4</kbd> variation · <kbd>Space</kbd>/<kbd>Click</kbd> bowl</li>
+            <li><kbd>C</kbd> POV / TV camera &nbsp; <kbd>Tab</kbd> scorecard &nbsp; <kbd>P</kbd> pause</li>
+          </ul>
+          <p class="note">Your camera picture is processed on this device and never uploaded or saved. The tracking library (Google MediaPipe) sends anonymous usage statistics, never images.</p>
+        </details>
+      </div>
+
+      <aside class="matchup" aria-hidden="true">
+        <div class="mu-team" id="mu-home">
+          <svg class="jersey" viewBox="0 0 120 120"><path class="j-body" d="M38 12 L22 18 L6 40 L20 52 L30 42 L30 108 L90 108 L90 42 L100 52 L114 40 L98 18 L82 12 Q60 28 38 12 Z"/><path class="j-trim" d="M38 12 Q60 28 82 12 L78 10 Q60 22 42 10 Z M6 40 L20 52 L23 49 L9 37 Z M114 40 L100 52 L97 49 L111 37 Z M30 70 L90 54 L90 62 L30 78 Z"/><text class="j-num" x="60" y="98" text-anchor="middle">1</text></svg>
+          <b class="mu-name"></b>
+          <span class="mu-role">Your team</span>
+        </div>
+        <div class="mu-vs"><span>VS</span></div>
+        <div class="mu-team" id="mu-away">
+          <svg class="jersey" viewBox="0 0 120 120"><path class="j-body" d="M38 12 L22 18 L6 40 L20 52 L30 42 L30 108 L90 108 L90 42 L100 52 L114 40 L98 18 L82 12 Q60 28 38 12 Z"/><path class="j-trim" d="M38 12 Q60 28 82 12 L78 10 Q60 22 42 10 Z M6 40 L20 52 L23 49 L9 37 Z M114 40 L100 52 L97 49 L111 37 Z M30 70 L90 54 L90 62 L30 78 Z"/><text class="j-num" x="60" y="98" text-anchor="middle">7</text></svg>
+          <b class="mu-name"></b>
+          <span class="mu-role">Opponent</span>
+        </div>
+        <p class="mu-venue" id="mu-venue"></p>
+      </aside>
+    </section>
+
+    <!-- In-game HUD -->
+    <section id="hud" class="hidden">
+      <div id="status"></div>
+      <div id="cam-mode-wrap">CAM <b id="cam-mode">POV</b> <span>press C</span></div>
+
+      <div id="speed" class="hidden">
+        <div class="speed-num"><span id="speed-val">0</span><small>km/h</small></div>
+        <div id="speed-type"></div>
+      </div>
+
+      <div id="flash" class="flash">
+        <div id="flash-main"></div>
+        <div id="flash-sub"></div>
+      </div>
+
+      <div id="shot-info">
+        <div id="shot-name"></div>
+        <div id="timing-label" class="timing"></div>
+        <div class="timing-bar"><span>Early</span><i id="timing-marker"></i><span>Late</span></div>
+      </div>
+
+      <!-- DRS: review prompt, verdict panel with snickometer, and replay badge -->
+      <div id="drs-prompt" class="hidden" role="alert">
+        <button id="drs-btn" class="btn primary">Review <kbd>R</kbd></button>
+        <span id="drs-left"></span>
+        <i class="drs-timer"><b id="drs-timer-bar"></b></i>
+      </div>
+      <div id="drs-panel" class="hidden" aria-live="polite">
+        <div class="drs-head">DRS <span id="drs-kind"></span></div>
+        <ul id="drs-rows"></ul>
+        <canvas id="snicko" width="420" height="90" class="hidden" aria-label="Snickometer"></canvas>
+        <div id="drs-decision"></div>
+      </div>
+      <div id="replay-badge" class="hidden"><b>REPLAY</b> <span id="replay-label"></span> <small><kbd>Space</kbd> skip</small></div>
+
+      <!-- Bowling choices -->
+      <div id="bowl-panel" class="hidden">
+        <div class="bowl-head">YOUR DELIVERY</div>
+        <ul id="bowl-options"></ul>
+        <div id="bowl-aim"></div>
+        <div class="bowl-hint">Move the mouse to place the target · <kbd>Space</kbd> to bowl</div>
+      </div>
+
+      <!-- Picture-in-picture: live webcam with skeleton and power meter -->
+      <div id="pip">
+        <div class="pip-head">CONTROL <b id="pip-mode">KEYBOARD</b> <span id="pip-fps"></span></div>
+        <canvas id="pip-canvas" width="560" height="420" class="hidden"></canvas>
+        <div class="pip-body">
+          <div class="aim">
+            <span>AIM</span>
+            <div class="aim-track"><i id="aim-marker"></i></div>
+          </div>
+          <div id="loft">LOFT</div>
+        </div>
+        <div class="power"><span>POWER</span><div class="power-track"><i id="power-fill"></i></div></div>
+      </div>
+
+      <!-- TV score bug -->
+      <div id="scorebug">
+        <div class="sb-main">
+          <div id="sb-team">PAK</div>
+          <div id="sb-score">0-0</div>
+          <div class="sb-ov"><span id="sb-overs">0.0</span><small>OV</small></div>
+        </div>
+        <div class="sb-bat">
+          <div id="sb-striker"></div>
+          <div id="sb-nonstriker"></div>
+        </div>
+        <div class="sb-bowl">
+          <div id="sb-bowler"></div>
+          <div id="sb-over"></div>
+        </div>
+        <div class="sb-need">
+          <div id="sb-need"></div>
+          <div id="sb-target"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calib" class="overlay hidden">
+      <div class="calib-card">
+        <div class="calib-side">
+          <p class="eyebrow">Webcam setup</p>
+          <ol id="calib-steps">
+            <li>Position</li>
+            <li>Batting hand</li>
+            <li>Stance</li>
+            <li>Practice</li>
+          </ol>
+          <h2 id="calib-title"></h2>
+          <p id="calib-text"></p>
+          <p id="calib-check" class="calib-check"></p>
+          <div id="calib-hand" class="menu-buttons hidden">
+            <button id="calib-right" class="btn primary">Right-handed</button>
+            <button id="calib-left" class="btn ghost">Left-handed</button>
+          </div>
+          <div class="menu-buttons">
+            <button id="calib-skip" class="btn ghost hidden">Skip practice</button>
+            <button id="calib-cancel" class="btn text">Back to menu</button>
+          </div>
+        </div>
+        <canvas id="calib-canvas" width="640" height="480"></canvas>
+      </div>
+    </section>
+
+    <section id="loading" class="overlay hidden">
+      <div class="menu-card small"><h2>Starting camera…</h2><p>Allow camera access when your browser asks.</p></div>
+    </section>
+
+    <section id="pause" class="overlay hidden">
+      <div class="menu-card small"><h2>Paused</h2><p>Press P to resume</p></div>
+    </section>
+
+    <section id="toss" class="overlay hidden">
+      <div class="menu-card toss-card">
+        <div id="coin" class="coin" aria-hidden="true">
+          <span class="face heads">H</span>
+          <span class="face tails">T</span>
+        </div>
+        <h2 id="toss-title">The toss</h2>
+        <p id="toss-text" aria-live="polite"></p>
+        <div id="toss-actions" class="menu-buttons"></div>
+      </div>
+    </section>
+
+    <section id="break" class="overlay hidden">
+      <div class="menu-card toss-card">
+        <h2 id="break-title">Innings break</h2>
+        <p id="break-text"></p>
+        <div class="menu-buttons">
+          <button id="btn-break" class="btn primary">Start the second innings</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="scorecard" class="overlay hidden">
+      <div class="menu-card wide">
+        <h2>Scorecard</h2>
+        <div id="scorecard-body" class="card-body"></div>
+        <p class="muted-note">Press <kbd>Tab</kbd> to close</p>
+      </div>
+    </section>
+
+    <section id="result" class="overlay hidden">
+      <div class="menu-card wide">
+        <h2 id="result-title"></h2>
+        <div id="result-detail" class="card-body"></div>
+        <p id="result-save" class="result-save" aria-live="polite"></p>
+        <div class="menu-buttons">
+          <button id="btn-again" class="btn primary">Play again</button>
+          <button id="btn-menu" class="btn ghost">Main menu</button>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

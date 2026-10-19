@@ -1,0 +1,7 @@
+Photo-scanned surfaces and sky used by the game. All from Poly Haven (https://polyhaven.com),
+released under CC0 (public domain): free to use, no attribution required. Credited anyway.
+
+textures/grass_nor.jpg, grass_rough.jpg, grass_ao.jpg   leafy_grass (1k: normal, roughness, ambient occlusion)
+textures/pitch_diff.jpg, pitch_nor.jpg                  clay_floor_001 (2k: colour, normal)
+textures/pitch_rough.jpg                                clay_floor_001 (1k: roughness)
+hdri/day_sky.hdr                                        kloofendal_48d_partly_cloudy_puresky (2k HDR)

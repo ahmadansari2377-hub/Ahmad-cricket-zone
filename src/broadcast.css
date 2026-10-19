@@ -1,0 +1,201 @@
+/* ---------- Phase 9: DRS and replays ---------- */
+#drs-prompt {
+  position: fixed;
+  left: 50%;
+  top: 22%;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 14px 18px 12px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid rgba(255, 210, 63, 0.5);
+  z-index: 6;
+  pointer-events: auto;
+}
+
+#drs-prompt .btn {
+  padding: 12px 26px;
+}
+
+#drs-prompt .btn kbd {
+  margin-left: 6px;
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.25);
+  color: #1a1400;
+}
+
+#drs-left {
+  font: 600 13px/1 var(--body);
+  color: var(--muted);
+}
+
+.drs-timer {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.drs-timer b {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left;
+}
+
+#drs-panel {
+  position: fixed;
+  right: 24px;
+  top: 90px;
+  width: min(360px, calc(100vw - 32px));
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(7, 14, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 3px solid var(--gold);
+  z-index: 6;
+}
+
+.drs-head {
+  font: 800 22px/1 var(--cond);
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.drs-head span {
+  display: block;
+  margin-top: 4px;
+  font: 600 12px/1 var(--body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#drs-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+#drs-rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  font: 600 14px/1 var(--body);
+  animation: drs-in 0.25s ease-out;
+}
+
+#drs-rows b {
+  font: 800 17px/1 var(--cond);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+#drs-rows b.bad,
+#drs-decision.bad {
+  background: #c21d33;
+  color: #fff;
+}
+
+#drs-rows b.good,
+#drs-decision.good {
+  background: #158a45;
+  color: #fff;
+}
+
+#drs-rows b.amber {
+  background: #c98900;
+  color: #fff;
+}
+
+#snicko {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
+#snicko.hidden {
+  display: none;
+}
+
+#drs-decision:not(:empty) {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: 800 30px/1 var(--cond);
+  letter-spacing: 0.06em;
+  text-align: center;
+  animation: drs-in 0.3s ease-out;
+}
+
+#drs-decision small {
+  display: block;
+  margin-top: 6px;
+  font: 600 13px/1 var(--body);
+  letter-spacing: 0.02em;
+}
+
+#replay-badge {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--glass);
+  font: 600 15px/1 var(--cond);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  z-index: 6;
+}
+
+#replay-badge b {
+  color: #fff;
+  background: var(--red);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+#replay-badge small {
+  color: var(--muted);
+  font: 500 12px/1 var(--body);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+@keyframes drs-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (max-width: 700px) {
+  #drs-panel {
+    right: 16px;
+    top: 70px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #drs-rows li,
+  #drs-decision:not(:empty) {
+    animation: none;
+  }
+}
